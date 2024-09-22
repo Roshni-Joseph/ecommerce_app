@@ -1,10 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const navigate = useNavigate()
+  
   return (
-    <div>
+    <div className='body'>
       <h1>Home Page</h1>
-      <button>Log Out</button>
+      <button onClick={() => navigate("/Login")}>Log Out</button>
     </div>
   )
 }
