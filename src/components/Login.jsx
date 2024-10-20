@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Container,Card, Button, Row, Col, Form } from 'react-bootstrap';
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -8,47 +9,60 @@ function Login() {
 
     const registeredUser = JSON.parse(localStorage.getItem("register_details"));
     const handleSubmit = () => {
+        
         if (registeredUser) {
           if (registeredUser.email === email && registeredUser.password === password) {
             navigate("/Home")
 
-        } else {
-            {<h1>alert('Invalid email or password')</h1>}
-            navigate("/Login")
+          } else {
+              alert('Invalid email or password')
+              navigate("/Login")
+          }
         }
-          
-        }
-      }
+    }      
+        
   return (
-    <form className='body'> 
-      <div className=''>
-                <label htmlFor="">Email: </label>
-                <input
-                    style={{ border: '1px solid black', padding: '' }}
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-
-            <div className=''>
-                <label htmlFor="">Password: </label>
-                <input
-                    style={{ border: '1px solid black', padding: '' }}
+    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <Row className="w-100">
+        <Col md={{ span: 6, offset: 3 }}>
+          <Card className="shadow-lg">
+            <Card.Body>
+              <h2 className="text-center mb-4">Login</h2>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
                     type="password"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
+                    required
+                  />
+                </Form.Group>
+                <Button variant="primary" onClick={handleSubmit} className="w-100">
+                  Login
+                </Button>
+              </Form>
+    
 
-            <button
-                style={{ border: '1px solid black', padding: '' }} 
-                onClick={handleSubmit}
-                >
-                Login</button>
-        </form>
+    </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>    
   )
 
 }
+
 
 export default Login

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Container,Card, Button, Row, Col, Form } from 'react-bootstrap';
+
 
 const Register = () => {
     const [name, setName] = useState("")
@@ -7,7 +9,8 @@ const Register = () => {
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         const formData = {
             name,
             email,
@@ -18,53 +21,62 @@ const Register = () => {
         localStorage.setItem("register_details", JSON.stringify(formData))
 
         const data = localStorage.getItem("register_details")
-        if(data){
-            navigate("/Login")
+        if(name && email && password){
+            navigate("/login")
         }
         else{
-            alert('Invalid email or password');
-            navigate("/Register")
+            alert('All fields are required');
         }
         console.log(data);
     }
 
     return (
-        <form className='body'>
-            <div className=''>
-                <label htmlFor="">Name: </label>
-                <input
-                    style={{ border: '1px solid black', padding: '' }}
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>
-
-            <div className=''>
-                <label htmlFor="">Email: </label>
-                <input
-                    style={{ border: '1px solid black', padding: '' }}
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-
-            <div className=''>
-                <label htmlFor="">Password: </label>
-                <input
-                    style={{ border: '1px solid black', padding: '' }}
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-
-            <button
-                style={{ border: '1px solid black', padding: '' }} 
-                onClick={handleSubmit}
-                >Register</button>
-        </form>
+        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+            <Row className="w-100">
+                <Col md={{ span: 6, offset: 3 }}>
+                <Card className="shadow-lg">
+                    <Card.Body>
+                    <h2 className="text-center mb-4">Register</h2>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Name</Form.Label>
+                            <Form.Control
+                            type="name"
+                            placeholder="Enter Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                            <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        </Form.Group>
+                        <Button variant="primary" onClick={handleSubmit} className="w-100">
+                            Register
+                        </Button>
+                    </Form>
+                    </Card.Body>
+                </Card>
+                </Col>
+            </Row>
+        </Container>  
     )
 }
 
