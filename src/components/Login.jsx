@@ -8,7 +8,7 @@ function Login() {
   const navigate = useNavigate()
 
   const registeredUser = JSON.parse(localStorage.getItem("register_details"));
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
 
     if (registeredUser) {
       if (registeredUser.email === email && registeredUser.password === password) {

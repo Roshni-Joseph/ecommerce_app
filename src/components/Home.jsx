@@ -6,7 +6,10 @@ import axios from 'axios';
 function Home() {
   const [products, setProducts] = useState([]);
   const [itemExists, setItemExists] = useState(false); // Track if the item exists in cart
-  const { setCartItemValue, cartItemValue } = useContext(CartContext);
+
+  
+
+  const { setCartItemValue, cartItemValue } = useContext(CartContext); // context variable and the process is destructuring
 
   useEffect(() => {
     // Fetch products from the API
@@ -24,13 +27,13 @@ function Home() {
   useEffect(() => {
     if (itemExists) {
       alert('Item already exists');
-      setItemExists(false);
+      // setItemExists(false);
     }
   }, [itemExists]);
-
-
+  
   // Add to cart
   const addToCart = (item) => {
+    // console.log(item)
     const itemExistsInCart = cartItemValue.some(prevItem => prevItem.id === item.id);
     if (itemExistsInCart) {
       setItemExists(true); // Set the flag to trigger the alert
@@ -38,7 +41,7 @@ function Home() {
       setCartItemValue((prev) => [...prev, item]); // Add item to cart
     }
   };
-
+ 
   return (
     <div className="body">
       <Container className="my-4">
